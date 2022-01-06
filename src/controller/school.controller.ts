@@ -32,13 +32,13 @@ router.get("/:schoolId", async (req, res) => {
   return res.status(200).json(school);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const school = req.body as School;
   if (!school) {
     return res.status(400).json();
   }
 
-  SchoolModel.create({
+  await SchoolModel.create({
     name: school.name,
   });
 
