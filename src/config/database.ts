@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import path from "path";
 
-const sequelize = new Sequelize("carrot", "root", "비밀번호", {
+const sequelize = new Sequelize("carrot", "root", "rhfo8524", {
   dialect: "mysql",
   models: [path.join(__dirname, "../model")],
 });

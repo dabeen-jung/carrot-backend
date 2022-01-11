@@ -35,25 +35,21 @@ router.post("/articles", async (req, res) => {
   });
 });
 
-//목록 요청하기 api
+//전체목록 띄우기->  req.query 이용해서 해당 지역 목록 띄우도록 수정
 router.get("/articles", async (req, res) => {
-  const articles = await Article.findAll();
+  const { location } = req.query;
+  if (!location) {
+    const articles = await Article.findAll();
+    return res.status(200).json(articles);
+  }
+
+  const articles = await Article.findAll({
+    where: {
+      location: location,
+    },
+  });
+
   return res.status(200).json(articles);
 });
-
-// //거래 글 불러오기 요청 api
-// router.get("/articles/:articleId", async (req, res) => {
-//   const { articleId } = req.params;
-//   if (!articleId) {
-//     return res.status(400).json();
-//   }
-
-//   const articleIdNumber: number = parseInt(articleId, 10);
-//   const article: Article | null = await Article.findByPk(articleIdNumber);
-//   if (!article) {
-//     return res.status(404).json();
-//   }
-//   return res.status(200).json(article);
-// });
 
 export default router;
