@@ -1,7 +1,7 @@
 import express from "express";
 import { createServer, Server } from "http";
-//import bodyParser from "body-parser";
-
+import bodyParser from "body-parser";
+import cors from "cors";
 import controller from "./controller";
 import database from "./config/database";
 
@@ -11,8 +11,9 @@ database.sync({
   alter: true,
 });
 
-app.use(express.json());
-//app.use(bodyParser.json());
+app.use(cors());
+
+app.use(bodyParser.json());
 app.use(controller);
 
 const server = createServer(app);

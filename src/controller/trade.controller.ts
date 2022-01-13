@@ -35,6 +35,25 @@ router.post("/articles", async (req, res) => {
   });
 });
 
+//article을 id를 통해 불러오는 api (school.controller get api 참고)
+router.get("/articles/:articleId", async (req, res) => {
+  const { articleId } = req.params;
+  if (!articleId) {
+    return res.status(400).json();
+  }
+  const articleIdNumber: number = parseInt(articleId, 10);
+  const article: Article | null = await Article.findOne({
+    where: {
+      id: articleIdNumber,
+    },
+  });
+
+  if (!article) {
+    return res.status(404).json();
+  }
+  return res.status(200).json(article);
+});
+
 //전체목록 띄우기->  req.query 이용해서 해당 지역 목록 띄우도록 수정
 router.get("/articles", async (req, res) => {
   const { location } = req.query;
